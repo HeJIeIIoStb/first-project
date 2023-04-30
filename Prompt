@@ -1,0 +1,596 @@
+// PROMPTER CUSTOM SCRIPTS
+
+// FOR PROMPT WRITING IN MIDJOURNEY, THE COOLEST AI EVER, BRAHHHHHHHHHHHHHH
+// CONTACT ME AT SHANE@PROMPTERGUIDE.COM WITH QUESTIONS OR PERSONAL INSULTS
+
+///////////////////////////////////////////
+// 2023-04-23 (Details in the code below //
+///////////////////////////////////////////
+
+
+// PROMPTER - CLEAR BUTTTON SCRIPT - Sets all fields to default so you can start over
+function promptCLEAR() {
+  var sheet = SpreadsheetApp.getActive().getActiveSheet();
+  sheet.getRange('B5').clearContent(); //Main Idea
+  sheet.getRange('AH5').clearContent(); //Main Idea
+  sheet.getRange('B8:B10').clearContent(); //Secondary Subjects
+  sheet.getRange('I8:I10').clearContent(); //Secondary Subjects
+  sheet.getRange('L8:L10').clearContent(); //Image URLs
+  sheet.getRange('AH8:AH11').clearContent(); //Image URLs
+  sheet.getRange('B13:B15').clearContent(); //Do Not Include
+  sheet.getRange('B17').clearContent(); //Stop
+  sheet.getRange('L13:L17').clearContent(); //Stylize, Quality, Chaos, Seed, SameSeed
+  sheet.getRange('B20:B21').clearContent(); //Aspect Ratio
+  sheet.getRange('I20').clearContent(); //Medium
+  sheet.getRange('P20').clearContent(); //Camera
+  sheet.getRange('T21').clearContent(); //Camera
+  sheet.getRange('W20').clearContent(); //Lighting
+  sheet.getRange('AA21').clearContent(); //Lighting
+  sheet.getRange('AD20').clearContent(); //Color
+  sheet.getRange('AH21').clearContent(); //Color
+  sheet.getRange('B25').clearContent(); //Descriptor 1
+  sheet.getRange('F26').clearContent(); //Descriptor 1
+  sheet.getRange('I25').clearContent(); //Descriptor 2
+  sheet.getRange('M26').clearContent(); //Descriptor 2
+  sheet.getRange('P25').clearContent(); //Artist
+  sheet.getRange('T26').clearContent(); //Artist
+  sheet.getRange('W25').clearContent(); //Film
+  sheet.getRange('AA26').clearContent(); //Film
+  sheet.getRange('AD25').clearContent(); //Game
+  sheet.getRange('AH26').clearContent(); //Game
+  sheet.getRange('AT22').clearContent(); //Batcher Weight
+  sheet.getRange('Z13:Z17').setValue(false); //Tile, HD, UpBeta, UpLight, Video
+  sheet.getRange('B30').clearContent(); //Depth Of Field
+  sheet.getRange('AX12').setValue('No Suffix'); //Suffix
+}
+
+
+
+// PROMPTER - SAVE BUTTTON SCRIPT - Copies all fields over to MyPrompts
+function promptSAVE() {
+  // Get the active spreadsheet and sheets
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var backendSheet = ss.getSheetByName('Backend');
+  var promptSheet = ss.getSheetByName('MyPrompts');
+  var prompterSheet = ss.getSheetByName('Prompter');
+
+  // Get the values to copy in Backend
+  var valuesToCopy = [
+    new Date(), // current date and time
+    backendSheet.getRange('G3').getValue(),
+    backendSheet.getRange('G4').getValue(),
+    backendSheet.getRange('H4').getValue(),
+    backendSheet.getRange('F5').getValue(),
+    backendSheet.getRange('G5').getValue(),
+    backendSheet.getRange('H5').getValue(),
+    backendSheet.getRange('F6').getValue(),
+    backendSheet.getRange('G6').getValue(),
+    backendSheet.getRange('H6').getValue(),
+    backendSheet.getRange('F7').getValue(),
+    backendSheet.getRange('G7').getValue(),
+    backendSheet.getRange('G8').getValue(),
+    backendSheet.getRange('H8').getValue(),
+    backendSheet.getRange('F9').getValue(),
+    backendSheet.getRange('G9').getValue(),
+    backendSheet.getRange('H9').getValue(),
+    backendSheet.getRange('F10').getValue(),
+    backendSheet.getRange('G10').getValue(),
+    backendSheet.getRange('H10').getValue(),
+    backendSheet.getRange('F11').getValue(),
+    backendSheet.getRange('G11').getValue(),
+    backendSheet.getRange('H11').getValue(),
+    backendSheet.getRange('F12').getValue(),
+    backendSheet.getRange('G12').getValue(),
+    backendSheet.getRange('H12').getValue(),
+    backendSheet.getRange('F13').getValue(),
+    backendSheet.getRange('G13').getValue(),
+    backendSheet.getRange('H13').getValue(),
+    backendSheet.getRange('F14').getValue(),
+    backendSheet.getRange('G14').getValue(),
+    backendSheet.getRange('H14').getValue(),
+    backendSheet.getRange('F15').getValue(),
+    backendSheet.getRange('G15').getValue(),
+    backendSheet.getRange('H15').getValue(),
+    backendSheet.getRange('F16').getValue(),
+    backendSheet.getRange('G16').getValue(),
+    backendSheet.getRange('H16').getValue(),
+    backendSheet.getRange('F17').getValue(),
+    backendSheet.getRange('G17').getValue(),
+    backendSheet.getRange('H17').getValue(),
+    backendSheet.getRange('F18').getValue(),
+    backendSheet.getRange('G18').getValue(),
+    backendSheet.getRange('H18').getValue(),
+    backendSheet.getRange('F19').getValue(),
+    backendSheet.getRange('G19').getValue(),
+    backendSheet.getRange('H19').getValue(),
+    backendSheet.getRange('G20').getValue(),
+    prompterSheet.getRange('AX12').getValue(),
+    backendSheet.getRange('G22').getValue(),
+    backendSheet.getRange('G23').getValue(),
+    backendSheet.getRange('G24').getValue(),
+    prompterSheet.getRange('B30').getValue(),
+    prompterSheet.getRange('AH11').getValue(),
+    prompterSheet.getRange('B17').getValue(),
+    prompterSheet.getRange('L13').getValue(),
+    prompterSheet.getRange('L14').getValue(),
+    prompterSheet.getRange('L15').getValue(),
+    prompterSheet.getRange('L16').getValue(),
+    prompterSheet.getRange('L17').getValue(),
+    prompterSheet.getRange('Z13').getValue(),
+    prompterSheet.getRange('Z14').getValue(),
+    prompterSheet.getRange('Z15').getValue(),
+    prompterSheet.getRange('Z16').getValue(),
+    prompterSheet.getRange('Z17').getValue(),
+    prompterSheet.getRange('B20').getValue(),
+    prompterSheet.getRange('AS5').getValue()
+  ];
+
+  // Insert a new row in MyPrompts
+  var lastRow = promptSheet.getLastRow();
+  promptSheet.insertRowAfter(lastRow);
+  var newRowIndex = lastRow + 1;
+
+  // Add current date and time
+  var currentDate = new Date();
+  var dateCell = promptSheet.getRange(newRowIndex, 2);
+  dateCell.setValue(currentDate);
+
+  // Piece together prompt
+  var formulaCell = promptSheet.getRange(newRowIndex, 3);
+  var formula = "=concatenate(G" + newRowIndex + ",H" + newRowIndex + ",I" + newRowIndex + ",J" + newRowIndex + ",K" + newRowIndex + ",L" + newRowIndex + ",M" + newRowIndex + ",N" + newRowIndex + ",O" + newRowIndex + ",P" + newRowIndex + ",Q" + newRowIndex + ",R" + newRowIndex + ",S" + newRowIndex + ",T" + newRowIndex + ",U" + newRowIndex + ",V" + newRowIndex + ",W" + newRowIndex + ",X" + newRowIndex + ",Y" + newRowIndex + ",Z" + newRowIndex + ",AA" + newRowIndex + ",AB" + newRowIndex + ",AC" + newRowIndex + ",AD" + newRowIndex + ",AE" + newRowIndex + ",AF" + newRowIndex + ",AG" + newRowIndex + ",AH" + newRowIndex + ",AI" + newRowIndex + ",AJ" + newRowIndex + ",AK" + newRowIndex + ",AL" + newRowIndex + ",AM" + newRowIndex + ",AN" + newRowIndex + ",AO" + newRowIndex + ",AP" + newRowIndex + ",AQ" + newRowIndex + ",AR" + newRowIndex + ",AS" + newRowIndex + ",AT" + newRowIndex + ",AU" + newRowIndex + ",AV" + newRowIndex + ",AW" + newRowIndex + ",AX" + newRowIndex + ",AY" + newRowIndex + ",AZ" + newRowIndex + ",BA" + newRowIndex + ",IF(REGEXMATCH(BB" + newRowIndex + ", \"Suffix\"), \"\", IF(BB" + newRowIndex + "=\"\", \"\", \" \")&FILTER(AllData!$L:$L, AllData!$K:$K=BB" + newRowIndex + ")),BC" + newRowIndex + ",BD" + newRowIndex + ",BE" + newRowIndex + ")";
+  formulaCell.setFormula(formula);
+
+  // Copy and organize all fields
+  for (var i = 1; i < valuesToCopy.length; i++) {
+    var newCell = promptSheet.getRange(newRowIndex, 6 + i);
+    newCell.setValue(valuesToCopy[i]);
+  }
+}
+
+
+
+
+
+
+// MYPROMPTS - LOAD BUTTTON SCRIPT - Copies pieces of a prompt into Prompter
+function promptLOAD() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var ui = SpreadsheetApp.getUi();
+  var response = ui.alert("Are you sure you want to load this prompt into Prompter? Current cells will be overwritten.", ui.ButtonSet.YES_NO);
+
+  if (response == ui.Button.YES) {
+    var selectedCount = 0;
+
+    for (var i = 2; i <= sheet.getLastRow(); i++) {
+      var rangeA = sheet.getRange("A" + i);
+      var valueA = rangeA.getValue();
+
+      if (valueA) {
+        selectedCount++;
+
+        if (selectedCount > 1) {
+          ui.alert("Multiple prompts were selected. Select only one.");
+          return;
+        }
+      }
+    }
+
+    if (selectedCount === 0) {
+      ui.alert("No prompts are selected.");
+      return;
+    }
+
+    for (var i = 2; i <= sheet.getLastRow(); i++) {
+      var rangeA = sheet.getRange("A" + i);
+      var valueA = rangeA.getValue();
+
+      if (valueA) {
+        var rangeH = sheet.getRange("H" + i);
+        var rangeI = sheet.getRange("I" + i);
+        var rangeK = sheet.getRange("K" + i);
+        var rangeL = sheet.getRange("L" + i);
+        var rangeN = sheet.getRange("N" + i);
+        var rangeO = sheet.getRange("O" + i);
+        var rangeQ = sheet.getRange("Q" + i);
+        var rangeR = sheet.getRange("R" + i);
+        var rangeS = sheet.getRange("S" + i);
+        var rangeU = sheet.getRange("U" + i);
+        var rangeV = sheet.getRange("V" + i);
+        var rangeX = sheet.getRange("X" + i);
+        var rangeY = sheet.getRange("Y" + i);
+        var rangeAA = sheet.getRange("AA" + i);
+        var rangeAB = sheet.getRange("AB" + i);
+        var rangeAD = sheet.getRange("AD" + i);
+        var rangeAE = sheet.getRange("AE" + i);
+        var rangeAG = sheet.getRange("AG" + i);
+        var rangeAH = sheet.getRange("AH" + i);
+        var rangeAJ = sheet.getRange("AJ" + i);
+        var rangeAK = sheet.getRange("AK" + i);
+        var rangeAM = sheet.getRange("AM" + i);
+        var rangeAN = sheet.getRange("AN" + i);
+        var rangeAP = sheet.getRange("AP" + i);
+        var rangeAQ = sheet.getRange("AQ" + i);
+        var rangeAS = sheet.getRange("AS" + i);
+        var rangeAT = sheet.getRange("AT" + i);
+        var rangeAV = sheet.getRange("AV" + i);
+        var rangeAW = sheet.getRange("AW" + i);
+        var rangeAY = sheet.getRange("AY" + i);
+        var rangeAZ = sheet.getRange("AZ" + i);
+        var rangeBF = sheet.getRange("BF" + i);
+        var rangeBB = sheet.getRange("BB" + i);
+        var rangeBC = sheet.getRange("BC" + i);
+        var rangeBG = sheet.getRange("BG" + i);
+        var rangeBH = sheet.getRange("BH" + i);
+        var rangeBI = sheet.getRange("BI" + i);
+        var rangeBJ = sheet.getRange("BJ" + i);
+        var rangeBK = sheet.getRange("BK" + i);
+        var rangeBK = sheet.getRange("BK" + i);
+        var rangeBL = sheet.getRange("BL" + i);
+        var rangeBM = sheet.getRange("BM" + i);
+        var rangeBN = sheet.getRange("BN" + i);
+        var rangeBO = sheet.getRange("BO" + i);
+        var rangeBP = sheet.getRange("BP" + i);
+        var rangeBQ = sheet.getRange("BQ" + i);
+        var rangeBR = sheet.getRange("BR" + i);
+        var rangeBS = sheet.getRange("BS" + i);
+        var rangeBT = sheet.getRange("BT" + i);
+        var valueH = rangeH.getValue();
+        var valueI = rangeI.getValue();
+        var valueK = rangeK.getValue();
+        var valueL = rangeL.getValue();
+        var valueN = rangeN.getValue();
+        var valueO = rangeO.getValue();
+        var valueQ = rangeQ.getValue();
+        var valueR = rangeR.getValue();
+        var valueS = rangeS.getValue();
+        var valueU = rangeU.getValue();
+        var valueV = rangeV.getValue();
+        var valueX = rangeX.getValue();
+        var valueY = rangeY.getValue();
+        var valueAA = rangeAA.getValue();
+        var valueAB = rangeAB.getValue();
+        var valueAD = rangeAD.getValue();
+        var valueAE = rangeAE.getValue();
+        var valueAG = rangeAG.getValue();
+        var valueAH = rangeAH.getValue();
+        var valueAJ = rangeAJ.getValue();
+        var valueAK = rangeAK.getValue();
+        var valueAM = rangeAM.getValue();
+        var valueAN = rangeAN.getValue();
+        var valueAP = rangeAP.getValue();
+        var valueAQ = rangeAQ.getValue();
+        var valueAS = rangeAS.getValue();
+        var valueAT = rangeAT.getValue();
+        var valueAV = rangeAV.getValue();
+        var valueAW = rangeAW.getValue();
+        var valueAY = rangeAY.getValue();
+        var valueAZ = rangeAZ.getValue();
+        var valueBF = rangeBF.getValue();
+        var valueBB = rangeBB.getValue();
+        var valueBC = rangeBC.getValue();
+        var valueBG = rangeBG.getValue();
+        var valueBH = rangeBH.getValue();
+        var valueBI = rangeBI.getValue();
+        var valueBJ = rangeBJ.getValue();
+        var valueBK = rangeBK.getValue();
+        var valueBL = rangeBL.getValue();
+        var valueBM = rangeBM.getValue();
+        var valueBN = rangeBN.getValue();
+        var valueBO = rangeBO.getValue();
+        var valueBP = rangeBP.getValue();
+        var valueBQ = rangeBQ.getValue();
+        var valueBR = rangeBR.getValue();
+        var valueBS = rangeBS.getValue();
+        var valueBT = rangeBT.getValue();
+
+        if (typeof valueH === "string") { valueH = valueH.trim().replace(/^::/, ""); }
+        if (typeof valueI === "string") { valueI = valueI.trim().replace(/^::/, ""); }
+        if (typeof valueK === "string") { valueK = valueK.trim().replace(/^::/, ""); }
+        if (typeof valueL === "string") { valueL = valueL.trim().replace(/^::/, ""); }
+        if (typeof valueN === "string") { valueN = valueN.trim().replace(/^::/, ""); }
+        if (typeof valueO === "string") { valueO = valueO.trim().replace(/^::/, ""); }
+        if (typeof valueQ === "string") { valueQ = valueQ.trim().replace(/^::| of/g, ""); }
+        if (typeof valueR === "string") { valueR = valueR.trim().replace(/^::/, ""); }
+        if (typeof valueS === "string") { valueS = valueS.trim().replace(/^::/, ""); }
+        if (typeof valueU === "string") { valueU = valueU.trim().replace(/^::|by /g, ""); }
+        if (typeof valueV === "string") { valueV = valueV.trim().replace(/^::/, ""); }
+        if (typeof valueX === "string") { valueX = valueX.trim().replace(/^::/, ""); }
+        if (typeof valueY === "string") { valueY = valueY.trim().replace(/^::/, ""); }
+        if (typeof valueAA === "string") { valueAA = valueAA.trim().replace(/^::/, ""); }
+        if (typeof valueAB === "string") { valueAB = valueAB.trim().replace(/^::/, ""); }
+        if (typeof valueAD === "string") { valueAD = valueAD.trim().replace(/^::/, ""); }
+        if (typeof valueAE === "string") { valueAE = valueAE.trim().replace(/^::/, ""); }
+        if (typeof valueAG === "string") { valueAG = valueAG.trim().replace(/^::/, ""); }
+        if (typeof valueAH === "string") { valueAH = valueAH.trim().replace(/^::/, ""); }
+        if (typeof valueAJ === "string") { valueAJ = valueAJ.trim().replace(/^::/, ""); }
+        if (typeof valueAK === "string") { valueAK = valueAK.trim().replace(/^::/, ""); }
+        if (typeof valueAM === "string") { valueAM = valueAM.trim().replace(/^::/, ""); }
+        if (typeof valueAN === "string") { valueAN = valueAN.trim().replace(/^::/, ""); }
+        if (typeof valueAP === "string") { valueAP = valueAP.trim().replace(/^::/, ""); }
+        if (typeof valueAQ === "string") { valueAQ = valueAQ.trim().replace(/^::/, ""); }
+        if (typeof valueAS === "string") { valueAS = valueAS.trim().replace(/^::/, ""); }
+        if (typeof valueAT === "string") { valueAT = valueAT.trim().replace(/^::/, ""); }
+        if (typeof valueAV === "string") { valueAV = valueAV.trim().replace(/^::/, "").replace(/ film style$/, ""); }
+        if (typeof valueAW === "string") { valueAW = valueAW.trim().replace(/^::/, ""); }
+        if (typeof valueAY === "string") { valueAY = valueAY.trim().replace(/^::/, "").replace(/ video-game style/gi, ""); }
+        if (typeof valueAZ === "string") { valueAZ = valueAZ.trim().replace(/^::/, ""); }
+        if (typeof valueBF === "string") { valueBF = valueBF.trim().replace(/^::/, ""); }
+        if (typeof valueBB === "string") { valueBB = valueBB.trim().replace(/^::/, ""); }
+        if (typeof valueBC === "string") { valueBC = valueBC.trim().replace(/^::|,|--no |defocus /gi, ""); }
+        if (typeof valueBG === "string") { valueBG = valueBG.trim().replace(/^::/, ""); }
+        if (typeof valueBH === "string") { valueBH = valueBH.trim().replace(/^::/, ""); }
+        if (typeof valueBI === "string") { valueBI = valueBI.trim().replace(/^::/, ""); }
+        if (typeof valueBJ === "string") { valueBJ = valueBJ.trim().replace(/^::/, ""); }
+        if (typeof valueBK === "string") { valueBK = valueBK.trim().replace(/^::/, ""); }
+        if (typeof valueBL === "string") { valueBL = valueBL.trim().replace(/^::/, ""); }
+        if (typeof valueBM === "string") { valueBM = valueBM.trim().replace(/^::/, ""); }
+        if (typeof valueBN === "string") { valueBN = valueBN.trim().replace(/^::/, ""); }
+        if (typeof valueBO === "string") { valueBO = valueBO.trim().replace(/^::/, ""); }
+        if (typeof valueBP === "string") { valueBP = valueBP.trim().replace(/^::/, ""); }
+        if (typeof valueBQ === "string") { valueBQ = valueBQ.trim().replace(/^::/, ""); }
+        if (typeof valueBR === "string") { valueBR = valueBR.trim().replace(/^::/, ""); }
+        if (typeof valueBS === "string") { valueBS = valueBS.trim().replace(/^::/, ""); }
+        if (typeof valueBT === "string") { valueBT = valueBT.trim().replace(/^::/, ""); }
+
+        var prompterSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Prompter");
+
+        prompterSheet.getRange("L8").setValue(valueH);
+        prompterSheet.getRange("AH8").setValue(valueI);
+        prompterSheet.getRange("L9").setValue(valueK);
+        prompterSheet.getRange("AH9").setValue(valueL);
+        prompterSheet.getRange("L10").setValue(valueN);
+        prompterSheet.getRange("AH10").setValue(valueO);
+        prompterSheet.getRange("I20").setValue(valueQ);
+        prompterSheet.getRange("B5").setValue(valueR);
+        prompterSheet.getRange("AH5").setValue(valueS);
+        prompterSheet.getRange("P25").setValue(valueU);
+        prompterSheet.getRange("T26").setValue(valueV);
+        prompterSheet.getRange("B8").setValue(valueX);
+        prompterSheet.getRange("I8").setValue(valueY);
+        prompterSheet.getRange("B9").setValue(valueAA);
+        prompterSheet.getRange("I9").setValue(valueAB);
+        prompterSheet.getRange("B10").setValue(valueAD);
+        prompterSheet.getRange("I10").setValue(valueAE);
+        prompterSheet.getRange("P20").setValue(valueAG);
+        prompterSheet.getRange("T21").setValue(valueAH);
+        prompterSheet.getRange("B25").setValue(valueAJ);
+        prompterSheet.getRange("F26").setValue(valueAK);
+        prompterSheet.getRange("I25").setValue(valueAM);
+        prompterSheet.getRange("M26").setValue(valueAN);
+        prompterSheet.getRange("W20").setValue(valueAP);
+        prompterSheet.getRange("AA21").setValue(valueAQ);
+        prompterSheet.getRange("AD20").setValue(valueAS);
+        prompterSheet.getRange("AH21").setValue(valueAT);
+        prompterSheet.getRange("W25").setValue(valueAV);
+        prompterSheet.getRange("AA26").setValue(valueAW);
+        prompterSheet.getRange("AD25").setValue(valueAY);
+        prompterSheet.getRange("AH26").setValue(valueAZ);
+        prompterSheet.getRange("B30").setValue(valueBF);
+        prompterSheet.getRange("AX12").setValue(valueBB);
+        prompterSheet.getRange("B13").setValue(valueBC);
+        prompterSheet.getRange("AH11").setValue(valueBG);
+        prompterSheet.getRange("B17").setValue(valueBH);
+        prompterSheet.getRange("L13").setValue(valueBI);
+        prompterSheet.getRange("L14").setValue(valueBJ);
+        prompterSheet.getRange("L15").setValue(valueBK);
+        prompterSheet.getRange("L16").setValue(valueBL);
+        prompterSheet.getRange("L17").setValue(valueBM);
+        prompterSheet.getRange("Z13").setValue(valueBN);
+        prompterSheet.getRange("Z14").setValue(valueBO);
+        prompterSheet.getRange("Z15").setValue(valueBP);
+        prompterSheet.getRange("Z16").setValue(valueBQ);
+        prompterSheet.getRange("Z17").setValue(valueBR);
+        prompterSheet.getRange("B20").setValue(valueBS);
+        prompterSheet.getRange("AS5").setValue(valueBT);
+
+        rangeA.setValue(false);
+        Browser.msgBox("Loaded into Prompter.");
+      }
+    }
+  }
+}
+
+
+// MYPROMPTS - DELETE BUTTTON SCRIPT - Deletes all rows marked for removal
+function promptDELETE() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("MyPrompts");
+  var data = sheet.getDataRange().getValues();
+  var promptSelected = false;
+
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] == true) {
+      promptSelected = true;
+      break;
+    }
+  }
+
+  if (!promptSelected) {
+    Browser.msgBox("No prompts were selected. Select one or more prompts.");
+    return;
+  }
+
+  var ui = SpreadsheetApp.getUi();
+  var result = ui.alert(
+    'Delete Prompt',
+    'Are you sure you want to delete the selected prompt(s)?',
+    ui.ButtonSet.YES_NO);
+
+  if (result == ui.Button.YES) {
+    for (var i = data.length - 1; i > 0; i--) {
+      if (data[i][0] == true) {
+        sheet.deleteRow(i + 1);
+      }
+    }
+  }
+}
+
+
+// PROMPTER - RANDOM SCRIPT - Picks random terms for every section
+function rRANDOM() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+  var prompterSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Prompter");
+
+  var dataRanges = ["B3:B500", "C3:C500", "D3:D500", "E3:E500", "F3:F500", "F3:F500", "G3:G500", "H3:H500", "I3:I500"];
+  var prompterRanges = ["I20", "P20", "W20", "AD20", "B25", "I25", "P25", "W25", "AD25"];
+
+  for (var i = 0; i < dataRanges.length; i++) {
+    var dataRange = sheet.getRange(dataRanges[i]);
+    var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+    var randomIndex = Math.floor(Math.random() * values.length);
+    var randomValue = values[randomIndex];
+
+    var prompterRange = prompterSheet.getRange(prompterRanges[i]);
+    prompterRange.setValue(randomValue);
+  }
+}
+
+
+// PROMPTER & TERMS - RANDOM SCRIPT & MULTI-SELECT & CHECKBOX SCRIPT - Picks random terms for one section & allows multi-select & Controls all of the checkboxes
+function onEdit(e) {
+  var range = e.range;
+  var sheet = e.source.getActiveSheet();
+  var sheetName = range.getSheet().getName();
+  var cellValue = range.getValue();
+  var col = range.getColumn();
+  var prompterSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Prompter");
+
+  // Check if the edited cell is in the range B2, E2, H2, K2, N2, Q2, T2, or W2
+  if (range.getRow() == 2 && [2, 5, 8, 11, 14, 17, 20, 23].indexOf(range.getColumn()) != -1) {
+    // Get the value of the edited cell
+    var value = e.value;
+
+    // Get the sheet that contains the edited cell
+    var sheet = range.getSheet();
+
+    // Get the range B6:B500, E6:E500, H6:H500, K6:K500, N6:N500, Q6:Q500, T6:T500, or W6:W500, depending on the edited cell
+    var targetRange = sheet.getRange(range.getRow() + 4, range.getColumn(), 495);
+
+    // Set the values of the target range to the value of the edited cell
+    targetRange.setValue(value);
+  }
+
+  if (sheetName == "Prompter") {
+    if (range.getA1Notation() == "I20" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("B2:B500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("I20");
+      prompterRange.setValue(randomValue);
+    } else if (range.getA1Notation() == "P20" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("C2:C500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("P20");
+      prompterRange.setValue(randomValue);
+    } else if (range.getA1Notation() == "W20" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("D2:D500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("W20");
+      prompterRange.setValue(randomValue);
+    } else if (range.getA1Notation() == "AD20" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("E2:E500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("AD20");
+      prompterRange.setValue(randomValue);
+    } else if (range.getA1Notation() == "B25" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("F2:F500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("B25");
+      prompterRange.setValue(randomValue);
+    } else if (range.getA1Notation() == "I25" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("F2:F500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("I25");
+      prompterRange.setValue(randomValue);
+    } else if (range.getA1Notation() == "P25" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("G2:G500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("P25");
+      prompterRange.setValue(randomValue);
+    } else if (range.getA1Notation() == "W25" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("H2:H500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("W25");
+      prompterRange.setValue(randomValue);
+    } else if (range.getA1Notation() == "AD25" && cellValue == "🎲 RANDOM 🎲") {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("AllData");
+      var dataRange = sheet.getRange("I2:I500");
+      var values = dataRange.getValues().flat().filter(value => value !== "" && value.indexOf("▬") === -1);
+      var randomIndex = Math.floor(Math.random() * values.length);
+      var randomValue = values[randomIndex];
+      var prompterRange = prompterSheet.getRange("AD25");
+      prompterRange.setValue(randomValue);
+  }
+
+  // Check if the edited cell is in the specified columns and its value is changed
+  if ([46, 49, 52, 55, 58, 61, 64, 67].includes(col) && range.getRow() == 6 && e.oldValue !== e.value) {
+    // Get the range of cells from the corresponding column (based on the edited cell) from row 8 to row 500
+    var targetRange = sheet.getRange(range.offset(2, 0).getA1Notation() + ":" + range.offset(494, 0).getA1Notation());
+    
+    // Set the value of the range based on the value of the edited cell
+    targetRange.setValue(e.value);
+  } else {
+    // Get the value of the cell that was edited
+    var value = range.getValue
+
+    // Check the value of the cell
+if (sheet.getRange("AX8").getValue() == "Enable Multi-Select") {
+  const active_sheet = SpreadsheetApp.getActiveSheet();
+  const active_name = active_sheet.getName();
+  // exits if not on the prompter sheet
+  if (active_name !== "Prompter") return;
+  
+  const get_new_value = ({ value, oldValue }) => {
+    // added this line to prevent section headers from being selected as options
+    if(value.match(/[→█▬►]+/)?.length > 0) return oldValue;
+    if (!value) return "";
+    if (!oldValue) return value;
+    return `${oldValue}, ${value}`;
+  }
+  
+  const edited_cell_address = e.range.getA1Notation();
+  
+  switch (edited_cell_address) {
+      case'I20':// MEDIUM
+      case'P20':// CAMERA
+      case'W20':// LIGHTING
+      case'AD20':// COLOR
+      case'B25':// DESCRIPTOR1
+      case'I25':// DESCRIPTOR2
+      case'P25':// ARTIST
+      case'W25':// FILM
+      case'AD25':// VIDEO GAME
+          active_sheet
+              .getRange(edited_cell_address)
+              .setValue(get_new_value(e));
+          break;
+      default:
+  }
+} else if (sheet.getRange("AX8").getValue() == "Disable Multi-Select") {
+  // DO NOTHING IF SETTING IS NOT SELECTED
+  return;
+} else {
+  // DO NOTHING IF SETTING IS NOT SELECTED
+}}}}
